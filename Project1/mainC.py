@@ -19,4 +19,5 @@ for i, Lambda in enumerate([1e-10, 1e-3, 1e-1, 1]):
     plt.plot(x_test, y, c="r", label="fitting")
     plt.ylim(-1.5, 1.5)
     plt.annotate("M=9", xy=(-0.15, 1))
+    
 plt.show()

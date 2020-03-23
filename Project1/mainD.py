@@ -27,20 +27,15 @@ class Naive_Bayes:
         return self.prior, self.conditional
     
     def predict(self, X):
-        res = []
         for i in range(len(self.prior)):
             p_i = self.prior[i]
             for j, h in enumerate(self.headers[:-1]):
-                p_i *= self.conditional[h][X[j]][i]*self.conditional[h][X[j]][i]
+                p_i *= self.conditional[h][X[j]][i]
             res.append(p_i)
         return res
     
 nb = Naive_Bayes(data)
 prior_probability,conditional_probability = nb.build()
-
-# print(prior_probability)
-# for k, v in conditional_probability.items():
-#     print(k, v)
 
 test_data = ['warm-blooded', 'hair', 'yes', 'no', 'no', 'yes', 'no']
 ans = nb.predict(test_data)

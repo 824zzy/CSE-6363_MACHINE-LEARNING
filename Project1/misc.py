@@ -42,11 +42,11 @@ class FeatureFormation():
         return np.asarray(features).transpose()
     
 class LinearRegression():
-    def fit(self, X:np.ndarray, t:np.ndarray):
+    def fit(self, X, t):
         self.w = np.linalg.pinv(X)@t
         self.var = np.mean(np.square(X@self.w-t))
 
-    def predict(self, X:np.ndarray, return_std:bool=False):
+    def predict(self, X, return_std):
         y = X @ self.w
         if return_std:
             y_std = np.sqrt(self.var) + np.zeros_like(y)
@@ -54,7 +54,7 @@ class LinearRegression():
         return y
     
 class RidgeRegression():
-    def __init__(self, alpha:float=1.):
+    def __init__(self, alpha):
         self.alpha = alpha
 
     def fit(self, X, t):
