@@ -11,7 +11,11 @@ def distance(x1, x2):
         if str(x1[i]).isdigit():
             dist += (x1[i]-x2[i])**2
         else:
-            dist += sum([1 if x1[i][j]!=x2[i][j] else 0 for j in range(len(x1[i]))])
+            max_len = max(len(x1[i]), len(x2[i])) if len(x1[i])!=len(x2[i]) else len(x1[i])
+            w1, w2 = x1[i].rjust(max_len), x2[i].rjust(max_len)
+            for j in range(max_len):
+                print(w1[j], w2[j])
+            dist += sum([1 if w1[j]!=w2[j] else 0 for j in range(max_len)])
     return dist
     
 if __name__ == "__main__":
