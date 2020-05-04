@@ -1,0 +1,3 @@
+""" Description
+Write a computer program to implement Centroidmethod.(i) the program can represent all the data instances as “k centroids”(assumingthe number of classes is k) ---these are “stored data”.  (ii) When a new data instance is presented, the program compares the new data instance to “k stored centroids”to compute the distance, and find out the nearest neighbor, and predict the class label for the new data instance.
+"""

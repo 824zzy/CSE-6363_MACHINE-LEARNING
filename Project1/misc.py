@@ -46,11 +46,8 @@ class LinearRegression():
         self.w = np.linalg.pinv(X)@t
         self.var = np.mean(np.square(X@self.w-t))
 
-    def predict(self, X, return_std):
+    def predict(self, X):
         y = X @ self.w
-        if return_std:
-            y_std = np.sqrt(self.var) + np.zeros_like(y)
-            return y, y_std
         return y
     
 class RidgeRegression():
