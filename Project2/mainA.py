@@ -11,11 +11,9 @@ def distance(x1, x2):
         if str(x1[i]).isdigit():
             dist += (x1[i]-x2[i])**2
         else:
-            w1, w2 = x1[i].split('-'), x2[i].split('-')
-            dist += sum([1 if w1[i]==w2[i] else 0 for i in range(len(w1))])
+            dist += sum([1 if x1[i][j]!=x2[i][j] else 0 for j in range(len(x1[i]))])
     return dist
     
 if __name__ == "__main__":
     dist = distance([11, "warm-blooded", 2], [13, "cold-blooded", 3])
     print(dist)
-        
