@@ -12,12 +12,13 @@ def distance(x1, x2):
             dist += (x1[i]-x2[i])**2
         else:
             max_len = max(len(x1[i]), len(x2[i])) if len(x1[i])!=len(x2[i]) else len(x1[i])
-            w1, w2 = x1[i].rjust(max_len), x2[i].rjust(max_len)
-            for j in range(max_len):
-                print(w1[j], w2[j])
+            w1, w2 = x1[i].ljust(max_len, '0'), x2[i].ljust(max_len, '0')
             dist += sum([1 if w1[j]!=w2[j] else 0 for j in range(max_len)])
     return dist
     
 if __name__ == "__main__":
+    # dist = distance([11, "warm-blooded", 2], [13, "cold-blooded", 3])
     dist = distance([11, "warm-blooded", 2], [13, "cold-blooded", 3])
-    print(dist)
+    print(dist) # 9
+    dist = distance(['small'], ['medium'])
+    print(dist) # 6

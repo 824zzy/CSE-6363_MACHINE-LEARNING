@@ -5,35 +5,40 @@ Write a computer program to implement KNNmethod.
 """
 import math
 class KNN:
-    def __init__(self, train_set, K):
-        self.train_set = train_set
+    def __init__(self, K):
         self.K = K
-        self.distance = []
-        self.dist = 0
-        self.classes = list(set([c[-1] for c in train_set]))
+        self.distances = []
+        self.k_neighbors = []
     
-    def classify(self, test_set):
-        pred = []
-        for test_case in test_set:
-            for row in self.train_set:
-                for x, y in zip(row[:-1], test_case):
-                    self.dist += (x-y)**2
-                self.distance.append(row+[math.sqrt(self.dist)])
-                self.dist = 0
-            self.distance.sort(key=lambda x: x[-1])
-            neightbors = self.distance[:self.K]
-            
-            res = [0] * len(self.classes)
-            for case in neightbors:
-                for idx, c in enumerate(self.classes):
-                    if case[-2] == c:
-                       max(enumerate(res), key=lambda x: x[1]) res[c] += 1
-            print(max(enumerate(res), key=lambda x: x[1]))
-            pred.append(max(enumerate(res), key=lambda x: x[1]))
-            self.distance = []
-        return pred
-            
-            
-            
+    @staticmethod
+    def distance(X1, X2):
+        dist = 0
+        for (x1, x2) in zip(X1, X2):
+            dist += (x1 - x2) ** 2
+        return dist
+    
+    def fit_predict(self, X_train, y_train, test_sample):
+        self.k_neighbors, self.distances = [], []
+        for X, y in zip(X_train, y_train):
+            d = self.distance(X, test_sample)
+            self.distances.append((X, y, d))
+        self.distances.sort(key=lambda x: x[-1]) # sort by distance
+        self.k_neighbors = [sample[0:-1] for sample in self.distances[0:self.K]]
+        
+        label_votes={}
+        for neighbor in self.k_neighbors:
+            label = neighbor[-1]
+            if label in label_votes.keys():
+                label_votes[label] += 1
+            else:
+                label_votes[label] = 1
+        sorted_votes=sorted(label_votes.items(), key=lambda kv: kv[1], reverse=True) ## sorted by vote numbers
+        return sorted_votes[0][0]
+        
+    
 if __name__ == "__main__":
-    knn = KNN()
+    X = [[0], [1], [2], [3]]
+    y = [0, 0, 1, 1]
+    knn = KNN(3)
+    pred = knn.fit_predict(X, y, [1.1])
+    print("Predicted class is: ", pred)
