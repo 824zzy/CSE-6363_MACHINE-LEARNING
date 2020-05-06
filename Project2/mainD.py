@@ -20,7 +20,7 @@ def centroid_method(X_train, y_train, X_test, y_test):
     return score
         
 if __name__ == "__main__":
-    filename = "../Project3/data/HandWrittenLetters.txt"
+    filename = "./data/HandWrittenLetters.txt"
     dataset = np.loadtxt(filename, delimiter=",")
     print(dataset.shape)
     X, Y = dataset[1:], dataset[0]
@@ -28,4 +28,4 @@ if __name__ == "__main__":
     X_train, X_test = X[:, :800], X[:, 800:]
     y_train, y_test = Y[:800], Y[800:]
     score = centroid_method(X_train, y_train, X_test, y_test)
-    print(score)
+    print("The accuracy of centroid method is: ", score)
